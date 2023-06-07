@@ -1,0 +1,45 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.2
+jobs:
+  run-backend-tests:
+    working_directory: ~/province_list
+    docker:
+      - image: circleci/ruby:2.7.0
+      - image: circleci/postgres:9.6-alpine
+    steps:
+      - checkout
+      - run:
+          name: installing libraries
+          command: |
+            sudo apt update
+            sudo apt install -y libv8-dev nodejs
+            sudo apt install -y libnode-dev libgconf-2-4 libatk1.0-0
+            sudo apt install -y libatk-bridge2.0-0 libgdk-pixbuf2.0-0
+            sudo apt install -y libgtk-3-0 libgbm-dev libasound2
+            sudo apt install -y libnss3-dev libxss-dev
+      - run:
+          name: installing dependencies
+          command: gem install bundler && bundle install
+      - run:
+          name: creating database
+          command: rails db:create && rails db:migrate
+      - run:
+          name: running rubocop
+          command: bundle exec rubocop
+      - run:
+          name: running rspec
+          command: bundle exec rspec
+
+workflows:
+  setup-workflow:
+    jobs:
+      - run-backend-tests:
+          filters:
+            branches:
+              ignore:
+                - development
+                - pub-development
+                - staging
+                - main

@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  back-app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: stateslistback
+    restart: unless-stopped
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/back-app
+      - bundle-volume:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file:
+      - .env.development
+
+  front-app:
+    build:
+      context: ../list-provinces/.
+      dockerfile: ../list-provinces/Dockerfile
+    container_name: stateslistfront
+    restart: unless-stopped
+    command: yarn start
+    volumes:
+      - .:/front-app
+      - bundle-volume:/usr/local/bundle
+    ports:
+      - "8000:3000"
+
+  db:
+    image: postgres
+    container_name: stateslistdb
+    volumes:
+      - db-volume:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: nopass
+
+volumes:
+  bundle-volume:
+  db-volume:
+  db-data:
+    driver: local
