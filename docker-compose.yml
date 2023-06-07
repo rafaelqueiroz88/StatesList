@@ -40,6 +40,8 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: nopass
+    env_file:
+      - .env.development
 
 volumes:
   bundle-volume:

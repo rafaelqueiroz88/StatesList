@@ -14,7 +14,7 @@ This is a simple API to list States and Cities built with Ruby on Rails. Refer t
 <br />
 
 This project has a dependencie on a Front-End project <br />
-Refer to the <a href="" />Front-End Github Project</a> <br />
+Refer to the <a href="https://github.com/rafaelqueiroz88/StatesListFront" />Front-End Github Project</a> <br />
 Clone it and put them side-by-side and follow their instructions. <br />
 
 There are some third party libraries in this project.
