@@ -47,6 +47,19 @@ Up
 docker-compose up
 ```
 
+### Rails Server
+
+<br />
+
+*Ignore this step if you have Docker installed. <br />
+If you want to run the server using Rails Server just run the follow command:
+
+<br />
+
+```
+rails s
+```
+
 <br />
 
 ## Database
