@@ -35,11 +35,4 @@ jobs:
 workflows:
   setup-workflow:
     jobs:
-      - run-backend-tests:
-          filters:
-            branches:
-              ignore:
-                - development
-                - pub-development
-                - staging
-                - main
+      - run-backend-tests
